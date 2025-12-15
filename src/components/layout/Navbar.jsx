@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu } from "lucide-react"; // Icons
-import Logo from '@/assets/logo.png'; // Make sure this path is correct
+import { Menu } from "lucide-react"; 
+import Logo from '@/assets/logo.png'; 
+import { Link } from 'react-router-dom'; // Ensure this is imported
 
 const Navbar = () => {
   const navLinks = [
@@ -17,15 +18,12 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center py-3 px-6">
         
         {/* --- LOGO SECTION --- */}
-        <a href="#" className="flex items-center gap-3 group">
-          {/* Logo Image */}
+        <Link to="/" className="flex items-center gap-3 group">
           <img 
             src={Logo} 
             alt="Sanchi Wellness" 
             className="h-10 w-auto object-contain" 
           />
-          
-          {/* Text Logo with Brand Gradient */}
           <div className="flex flex-col">
             <span className="text-xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-600 group-hover:opacity-80 transition-opacity">
               SANCHI WELLNESS
@@ -34,7 +32,7 @@ const Navbar = () => {
               Keeping Wellness In Everyday Life
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* --- DESKTOP NAVIGATION --- */}
         <div className="hidden md:flex items-center space-x-8">
@@ -48,22 +46,23 @@ const Navbar = () => {
             </a>
           ))}
           
-          <Button className="bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
-            Shop Now
-          </Button>
+          {/* FIXED: Wrapped Button in Link */}
+          <Link to="/login">
+            <Button className="bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
+              Shop Now
+            </Button>
+          </Link>
         </div>
 
         {/* --- MOBILE MENU (SHEET) --- */}
         <div className="md:hidden">
           <Sheet>
-            {/* The Trigger (Hamburger Icon) */}
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="text-gray-700">
                 <Menu className="h-7 w-7" />
               </Button>
             </SheetTrigger>
 
-            {/* The Content (Slide-out Drawer) */}
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <SheetHeader className="mb-8 text-left">
                 <SheetTitle>
@@ -85,9 +84,12 @@ const Navbar = () => {
                   </a>
                 ))}
                 
-                <Button className="mt-4 w-full bg-gradient-to-r from-cyan-500 to-green-600 text-white rounded-full">
-                  Shop Now
-                </Button>
+                {/* Mobile Button Link */}
+                <Link to="/login">
+                  <Button className="w-full bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
+                    Shop Now
+                  </Button>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

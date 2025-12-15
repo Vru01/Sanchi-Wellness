@@ -100,13 +100,11 @@ const products = [
 
 const ProductSection = () => {
   return (
-    // Changed background to a clean Slate-50 to make colors pop
     <section id="products" className="py-24 bg-slate-50">
       <div className="container mx-auto px-6">
         
         {/* Header Section */}
         <div className="text-center mb-16">
-          {/* THEME UPDATE: Gradient Text for Heading */}
           <h2 className="text-4xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-green-600">
             Our Premium Collection
           </h2>
@@ -120,11 +118,12 @@ const ProductSection = () => {
             <Card key={product.id} className="group border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white overflow-hidden flex flex-col h-full">
               <CardHeader className="p-0 relative">
                 
-                {/* Image Container with Hover Gradient Effect */}
+                {/* Image Container */}
                 <div className="overflow-hidden h-72 bg-gray-50 flex items-center justify-center relative">
                    {/* Subtle gradient background appearing on hover */}
                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-50/50 to-green-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                    
+                   {/* Image has z-10, so Badge needs higher z-index */}
                    <img 
                     src={product.img} 
                     alt={product.name} 
@@ -132,9 +131,9 @@ const ProductSection = () => {
                   />
                 </div>
 
-                {/* Badge Logic with Theme Colors */}
+                {/* Badge Logic - Added 'z-20' to ensure it sits on top of the image */}
                 {product.tag && (
-                  <Badge className={`absolute top-3 right-3 shadow-md ${
+                  <Badge className={`absolute top-3 right-3 shadow-md z-20 ${
                     product.tag === 'Best Seller' ? 'bg-amber-500 hover:bg-amber-600' : 
                     product.tag === 'Organic' ? 'bg-green-600 hover:bg-green-700' :
                     'bg-cyan-600 hover:bg-cyan-700'
@@ -146,14 +145,12 @@ const ProductSection = () => {
               
               <CardContent className="p-6 flex-grow">
                 <div className="flex justify-between items-start mb-2">
-                  {/* THEME UPDATE: Category text color */}
                   <p className="text-xs font-bold text-cyan-600 uppercase tracking-wider">
                     {product.category}
                   </p>
                   <span className="text-lg font-bold text-gray-900">{product.price}</span>
                 </div>
                 
-                {/* THEME UPDATE: Title hover color */}
                 <h3 className="text-xl font-bold text-gray-900 leading-tight mb-1 group-hover:text-green-600 transition-colors">
                   {product.name}
                 </h3>
@@ -161,7 +158,6 @@ const ProductSection = () => {
               </CardContent>
               
               <CardFooter className="p-6 pt-0">
-                {/* THEME UPDATE: Gradient Button */}
                 <Button className="w-full bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white shadow-md active:scale-95 transition-all">
                   Add to Cart
                 </Button>

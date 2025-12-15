@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Leaf, FlaskConical, HeartHandshake } from "lucide-react"; 
 
 // IMPORT IMAGE (Make sure this path is correct)
-import AboutImage from '@/assets/SlideShow/S1.jpeg'; 
-
+// import AboutImage from '@/assets/Products/P1.jpeg'; 
+import AboutImage from '@/assets/image.png';
 const AboutSection = () => {
   return (
     <section id="about" className="py-16 md:py-24 bg-stone-50">
