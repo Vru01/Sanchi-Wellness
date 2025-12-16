@@ -60,13 +60,13 @@ const HeroSlider = () => {
           {images.map((img, index) => (
             <CarouselItem key={index} className="p-0">
               {/* HEIGHT SETTINGS */}
-              <div className="relative w-full h-screen md:h-[85vh] overflow-hidden">
+              <div className="relative w-full h-full md:h-[105vh] overflow-hidden">
                 
                 {/* 1. THE IMAGE */}
                 <img 
                   src={img} 
                   alt={`Sanchi Wellness Product ${index + 1}`} 
-                  className="w-full h-full object-fill"
+                  className="w-full h-full object-fill object-center"
                 />
 
                 {/* 2. THE GREY/DULL OVERLAY 
