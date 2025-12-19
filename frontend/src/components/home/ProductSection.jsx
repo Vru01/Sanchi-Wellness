@@ -3,16 +3,8 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-// Import images directly
-import P1 from '@/assets/Products/P1.jpeg';
-import P2 from '@/assets/Products/P2.jpeg';
-import P3 from '@/assets/Products/P3.jpeg';
-import P4 from '@/assets/Products/P4.jpeg';
-import P5 from '@/assets/Products/P5.jpeg';
-import P6 from '@/assets/Products/P6.jpeg';
-import P7 from '@/assets/Products/P7.jpeg';
-import P8 from '@/assets/Products/P8.jpeg';
-import P9 from '@/assets/Products/P9.jpeg';
+// BASE URL for your backend
+const API_URL = "http://localhost:5000";
 
 const products = [
   { 
@@ -21,7 +13,8 @@ const products = [
     description: "Extreme Satisfaction",
     price: "₹899", 
     category: "Men's Health", 
-    img: P1,
+    // Pointing to backend file path
+    img: `${API_URL}/uploads/Products/P1.jpeg`,
     tag: "Best Seller"
   },
   { 
@@ -30,7 +23,7 @@ const products = [
     description: "Vitality Booster",
     price: "₹749", 
     category: "Men's Health", 
-    img: P2,
+    img: `${API_URL}/uploads/Products/P2.jpeg`,
     tag: "Trending"
   },
   { 
@@ -39,7 +32,7 @@ const products = [
     description: "Pure Cow Colostrum",
     price: "₹699", 
     category: "Immunity", 
-    img: P4,
+    img: `${API_URL}/uploads/Products/P4.jpeg`,
     tag: null
   },
   { 
@@ -48,7 +41,7 @@ const products = [
     description: "Anti Hair Fall Shampoo",
     price: "₹349", 
     category: "Hair Care", 
-    img: P5,
+    img: `${API_URL}/uploads/Products/P5.jpeg`,
     tag: "Herbal"
   },
   { 
@@ -57,7 +50,7 @@ const products = [
     description: "Cucumber & Tea Tree",
     price: "₹249", 
     category: "Face Care", 
-    img: P9,
+    img: `${API_URL}/uploads/Products/P9.jpeg`,
     tag: "Daily Use"
   },
   { 
@@ -66,7 +59,7 @@ const products = [
     description: "Soothe & Glow Gel",
     price: "₹199", 
     category: "Skin Care", 
-    img: P3,
+    img: `${API_URL}/uploads/Products/P3.jpeg`,
     tag: null
   },
   { 
@@ -75,7 +68,7 @@ const products = [
     description: "Intimate Hygiene Wash",
     price: "₹299", 
     category: "Personal Care", 
-    img: P6,
+    img: `${API_URL}/uploads/Products/P6.jpeg`,
     tag: null
   },
   { 
@@ -84,7 +77,7 @@ const products = [
     description: "Sandalwood & Saffron",
     price: "₹129", 
     category: "Bath & Body", 
-    img: P7,
+    img: `${API_URL}/uploads/Products/P7.jpeg`,
     tag: "Organic"
   },
   { 
@@ -93,7 +86,7 @@ const products = [
     description: "Cream Soft Soap",
     price: "₹119", 
     category: "Bath & Body", 
-    img: P8,
+    img: `${API_URL}/uploads/Products/P8.jpeg`,
     tag: null
   },
 ];
@@ -131,7 +124,7 @@ const ProductSection = () => {
                   />
                 </div>
 
-                {/* Badge Logic - Added 'z-20' to ensure it sits on top of the image */}
+                {/* Badge Logic */}
                 {product.tag && (
                   <Badge className={`absolute top-3 right-3 shadow-md z-20 ${
                     product.tag === 'Best Seller' ? 'bg-amber-500 hover:bg-amber-600' : 

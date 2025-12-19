@@ -8,20 +8,23 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Import SlideShow Images
-import S1 from '@/assets/SlideShow/S1.jpeg';
-import S2 from '@/assets/SlideShow/S2.jpeg';
-import S3 from '@/assets/SlideShow/S3.jpeg';
-import S4 from '@/assets/SlideShow/S4.jpeg';
-import S5 from '@/assets/SlideShow/S5.jpeg';
-import S6 from '@/assets/SlideShow/S6.jpeg';
-
 const HeroSlider = () => {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: false })
   );
 
-  const images = [S1, S2, S3, S4, S5, S6];
+  // BASE URL for your backend
+  const API_URL = "http://localhost:5000";
+
+  // Array of image URLs from the backend
+  const images = [
+    `${API_URL}/uploads/SlideShow/S1.jpeg`,
+    `${API_URL}/uploads/SlideShow/S2.jpeg`,
+    `${API_URL}/uploads/SlideShow/S3.jpeg`,
+    `${API_URL}/uploads/SlideShow/S4.jpeg`,
+    `${API_URL}/uploads/SlideShow/S5.jpeg`,
+    `${API_URL}/uploads/SlideShow/S6.jpeg`,
+  ];
 
   return (
     <section className="relative w-full bg-gray-900">
@@ -29,13 +32,6 @@ const HeroSlider = () => {
       {/* --- CENTERED TEXT OVERLAY --- */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none px-2 md:px-4">
         
-        {/* LOGO CONTAINER UPDATED:
-           - Single continuous gradient across the whole text.
-           - Used the exact colors from your snippet: from-cyan-400 to-green-500.
-           - Retained hero sizing (text-[8vw] etc.) for impact.
-           - 'whitespace-nowrap' ensures it stays on one line.
-           - 'pb-2' prevents the bottom of the gradient from being clipped.
-        */}
         <h1 className="text-[8vw] md:text-8xl lg:text-9xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-500 drop-shadow-[0_4px_4px_rgba(0,0,0,0.6)] text-center whitespace-nowrap pb-2">
           SANCHI WELLNESS
         </h1>
@@ -58,14 +54,14 @@ const HeroSlider = () => {
         }}
       >
         <CarouselContent>
-          {images.map((img, index) => (
+          {images.map((imgUrl, index) => (
             <CarouselItem key={index} className="p-0">
               {/* HEIGHT SETTINGS */}
               <div className="relative w-full h-full md:h-[105vh] overflow-hidden">
                 
-                {/* 1. THE IMAGE (Unchanged settings as requested previously) */}
+                {/* 1. THE IMAGE */}
                 <img 
-                  src={img} 
+                  src={imgUrl} 
                   alt={`Sanchi Wellness Product ${index + 1}`} 
                   className="w-full h-full object-fill object-center"
                 />

@@ -1,0 +1,31 @@
+# 1. Dependency directories
+node_modules/
+
+# 2. Database (IMPORTANT!)
+# You do NOT want to push your local database to GitHub
+*.db
+*.sqlite
+
+# 3. Environment variables
+.env
+
+# 4. Uploaded Images
+# --- CHANGE HERE ---
+# We commented this out because we WANT to push product images to GitHub
+# uploads/* ```
+
+### **A Very Important Warning About Render**
+
+While pushing these images solves your problem for **displaying** products, you need to know how Render (and most cloud platforms like Heroku/Vercel) works:
+
+**Render has an "Ephemeral Filesystem" (Temporary Storage).**
+
+* **What this means:** Every time you deploy new code or your server restarts (which happens automatically), Render **wipes the hard drive clean** and re-clones the fresh code from GitHub.
+* **The Result:**
+    1.  **Your Product Images (Pushed to Git):** ✅ **SAFE.** They are in the repo, so they get re-downloaded every time.
+    2.  **New User Uploads (Not in Git):** ❌ **UNSAFE.** If a user signs up tomorrow and uploads a profile picture *while the site is running*, that picture will **disappear** the next time you deploy or restart the server.
+
+**Summary:**
+For this project right now, **pushing the `uploads` folder is the correct solution.** It will ensure your products and sliders appear on your live site.
+
+Just keep in mind for future "real" professional apps, developers usually store uploaded images on a cloud service like **AWS S3** or **Cloudinary** to prevent them from being deleted on server restarts.
