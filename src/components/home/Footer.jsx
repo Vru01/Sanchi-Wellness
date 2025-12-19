@@ -19,7 +19,7 @@ const Footer = () => {
               <img 
                 src={Logo} 
                 alt="Sanchi Wellness" 
-                className="h-12 w-12 rounded-lg object-cover bg-white p-0.5" 
+                className="h-12 w-12 rounded-lg object-cover p-0.5" 
               />
               <div className="flex flex-col">
                  <h3 className="text-xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-500">

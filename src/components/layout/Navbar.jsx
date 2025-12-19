@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react'; // 1. Import useState
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu } from "lucide-react"; 
 import Logo from '@/assets/logo.png'; 
-import { Link } from 'react-router-dom'; // Ensure this is imported
+import { Link } from 'react-router-dom'; 
 
 const Navbar = () => {
+  // 2. Add state to track if the menu is open or closed
+  const [isOpen, setIsOpen] = useState(false);
+
   const navLinks = [
     { name: "Home", href: "#" },
     { name: "About", href: "#about" },
@@ -46,7 +49,6 @@ const Navbar = () => {
             </a>
           ))}
           
-          {/* FIXED: Wrapped Button in Link */}
           <Link to="/login">
             <Button className="bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
               Shop Now
@@ -56,7 +58,8 @@ const Navbar = () => {
 
         {/* --- MOBILE MENU (SHEET) --- */}
         <div className="md:hidden">
-          <Sheet>
+          {/* 3. Control the Sheet using the 'open' and 'onOpenChange' props */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="text-gray-700">
                 <Menu className="h-7 w-7" />
@@ -78,6 +81,8 @@ const Navbar = () => {
                   <a 
                     key={link.name} 
                     href={link.href} 
+                    // 4. Close the menu when a link is clicked
+                    onClick={() => setIsOpen(false)}
                     className="text-lg font-medium text-gray-700 hover:text-cyan-600 border-b border-gray-100 pb-2 transition-colors"
                   >
                     {link.name}
@@ -85,7 +90,7 @@ const Navbar = () => {
                 ))}
                 
                 {/* Mobile Button Link */}
-                <Link to="/login">
+                <Link to="/login" onClick={() => setIsOpen(false)}>
                   <Button className="w-full bg-gradient-to-r from-cyan-500 to-green-600 hover:from-cyan-600 hover:to-green-700 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
                     Shop Now
                   </Button>
