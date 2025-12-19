@@ -7,6 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 import Logo from '@/assets/logo.png'; // Keep Logo in assets, it's part of the UI, not data
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Signup = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +30,7 @@ const Signup = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${API_URL}/api/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

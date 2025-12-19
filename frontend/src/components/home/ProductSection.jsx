@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const products = [
   { id: 1, name: "Male Might", description: "Extreme Satisfaction", price: 899, category: "Men's Health", img: `${API_URL}/uploads/Products/P1.jpeg`, tag: "Best Seller" },
