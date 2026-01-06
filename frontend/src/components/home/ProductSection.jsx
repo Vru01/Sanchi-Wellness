@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
+const API_BASE = "http://localhost:5000/api"; // Ensure this matches your backend
 
 const products = [
   { id: 1, name: "Male Might", description: "Extreme Satisfaction", price: 899, category: "Men's Health", img: `${API_URL}/uploads/Products/P1.jpeg`, tag: "Best Seller" },
@@ -18,51 +19,64 @@ const products = [
   { id: 8, name: "Aspire Glow Soap", description: "Cream Soft Soap", price: 119, category: "Bath & Body", img: `${API_URL}/uploads/Products/P8.jpeg`, tag: null },
 ];
 
-const ProductSection = () => {
+// Accept onAddToCart prop for when used inside Dashboard
+const ProductSection = ({ onAddToCart }) => {
   const navigate = useNavigate();
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
     // 1. Check if user is logged in
-    const user = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('user');
     
-    if (!user) {
+    if (!storedUser) {
       alert("Please login to add items to your cart!");
       navigate('/login');
       return;
     }
 
-    // 2. Add to Cart (LocalStorage)
-    const currentCart = JSON.parse(localStorage.getItem('cart') || "[]");
-    
-    // Check if item already exists
-    const existingItem = currentCart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      currentCart.push({ ...product, quantity: 1 });
-    }
+    const user = JSON.parse(storedUser);
 
-    localStorage.setItem('cart', JSON.stringify(currentCart));
-    
-    // Simple alert for now (You can replace this with a nice Toast later)
-    alert(`${product.name} added to cart!`);
-    
-    // Optional: Reload page to update Navbar cart count if you have one
-    window.dispatchEvent(new Event("storage"));
+    // 2. Add to Cart Logic
+    // If a parent component provided a handler (like Dashboard), use it.
+    if (onAddToCart) {
+      onAddToCart(product);
+      alert(`${product.name} added to cart!`);
+    } else {
+      // Otherwise, make the API call directly (e.g., if used on Home page)
+      try {
+        const res = await fetch(`${API_BASE}/cart/add`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user.id, product: product }),
+        });
+
+        if (res.ok) {
+          alert(`${product.name} added to cart!`);
+          // Dispatch event if you want other components to know (optional)
+          window.dispatchEvent(new Event("cartUpdated"));
+        } else {
+          alert("Failed to add to cart.");
+        }
+      } catch (error) {
+        console.error("Error adding to cart:", error);
+        alert("Something went wrong.");
+      }
+    }
   };
 
   return (
     <section id="products" className="py-24 bg-slate-50">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-green-600">
-            Our Premium Collection
-          </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto">
-            Discover the power of nature with Sanchi Wellness.
-          </p>
-        </div>
+        {/* Only show header if NOT passed a prop (implies it's the main products page) */}
+        {!onAddToCart && (
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-green-600">
+              Our Premium Collection
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Discover the power of nature with Sanchi Wellness.
+            </p>
+          </div>
+        )}
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {products.map((product) => (
